@@ -10,16 +10,10 @@ public class HomeStep {
     }
     public void fillFormAndSubmit(String email, String password) {
         page.openBaseURL();
-        page.waitForElementLocatedBy(page.closePopUpLocator);
         page.closePopUp();
         page.clickLoginButton();
-        page.waitElementLocatedBy(page.inputEmailLocator);
         page.fieldEmail(email);
         page.fieldPassword(password);
         page.submitLoginForm();
-    }
-    public String getErrorMessage() {
-        page.waitElementLocatedBy(page.errorMessageLocator);
-        return page.getErrorMessage();
     }
 }
