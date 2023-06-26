@@ -27,33 +27,32 @@ public class Tests {
 
     @Test
     public void fillFormWithIncorrectDataAndSubmit() {
-        step.fillFormAndSubmit(util.generateEmail(), util.generatePassword());
+        step.fillFormAndSubmitWithIncorrectData(util.generateEmail(), util.generatePassword());
         Assertions.assertEquals(homePage.expectedErrorMessage, homePage.getErrorMessage());
     }
 
     @Test
     public void fillFormWithEmailAndEmptyPassword() {
-        step.fillFormAndSubmit(util.generateEmail(), "");
+        step.fillFormAndSubmitWithIncorrectData(util.generateEmail(), "");
         Assertions.assertEquals(homePage.expectedErrorMessage, homePage.getErrorMessage());
     }
 
     @Test
     public void fillFormWithPasswordAndEmptyEmail() {
-        step.fillFormAndSubmit("", util.generatePassword());
+        step.fillFormAndSubmitWithIncorrectData("", util.generatePassword());
         Assertions.assertEquals(homePage.expectedErrorMessage, homePage.getErrorMessage());
     }
 
     @Test
     public void fillFormWithEmptyData() {
-        step.fillFormAndSubmit("", "");
+        step.fillFormAndSubmitWithIncorrectData("", "");
         Assertions.assertEquals(homePage.expectedErrorMessage, homePage.getErrorMessage());
     }
 
     @Test
     public void fillFormWithCorrectData() {
-        step.fillFormAndSubmit(util.correctEmail(), util.correctPassword());
-        // TO DO ASSERTION
-        Assertions.assertEquals(homePage.expectedErrorMessage, homePage.getErrorMessage());
+        step.fillFormAndSubmitWithIncorrectData(util.correctEmail(), util.correctPassword());
+        Assertions.assertEquals(homePage.expectedSuccessfulMessage, homePage.getSuccessfulMessage());
     }
     @AfterEach
     public void tearsDown() {

@@ -8,7 +8,7 @@ public class HomeStep {
     public HomeStep (ChromeDriver driver, WebDriverWait wait){
         page = new HomePage(driver, wait);
     }
-    public void fillFormAndSubmit(String email, String password) {
+    public void fillFormAndSubmitWithIncorrectData(String email, String password) {
         page.openBaseURL();
         page.closePopUp();
         page.clickLoginButton();

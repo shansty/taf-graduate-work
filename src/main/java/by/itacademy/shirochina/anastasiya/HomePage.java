@@ -15,13 +15,15 @@ public class HomePage {
     private WebDriverWait wait;
 
     private String baseURL = "https://markformelle.by/";
+    private String closePopUpLocator = "//div[@class = 'popmechanic-close']";
     private String clickLoginButtonLocator = "//a[@class = 'header-profile js-popup-modal-input']";
     private String submitLoginFormLocator = "//input[@name = 'Login']";
     private String inputPasswordLocator = "//input[@placeholder = 'Пароль']";
     private String inputEmailLocator = "//input[@placeholder = 'Email или логин ']";
     private String errorMessageLocator = "//div[text()='Неверный Email или пароль.']";
-    private String closePopUpLocator = "//div[@class = 'popmechanic-close']";
-    protected String expectedErrorMessage = "Неверный Email или пароль.";
+    private String successfulMessageLocator = "//span[text()='Вы успешно вошли на сайт!']";
+    String expectedErrorMessage = "Неверный Email или пароль.";
+    String expectedSuccessfulMessage = "Вы успешно вошли на сайт!";
 
     HomePage(ChromeDriver driver, WebDriverWait wait) {
 
@@ -34,6 +36,7 @@ public class HomePage {
     }
 
     public void clickLoginButton() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(clickLoginButtonLocator)));
         driver.findElement(By.xpath(clickLoginButtonLocator)).click();
     }
 
@@ -59,6 +62,12 @@ public class HomePage {
         List<WebElement> errorMessages = driver.findElements(By.xpath(errorMessageLocator));
         String actualErrorMessage = errorMessages.get(1).getText();
         return actualErrorMessage;
+    }
+    public String getSuccessfulMessage() {
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(successfulMessageLocator)));
+        List <WebElement> successMessages = driver.findElements(By.xpath(successfulMessageLocator));
+        String actualSuccessMessage = successMessages.get(1).getText();
+        return actualSuccessMessage;
     }
     public void closePopUp(){
         try {
