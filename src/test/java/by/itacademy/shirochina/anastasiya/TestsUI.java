@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class Tests {
+public class TestsUI {
     ChromeDriver driver;
     WebDriverWait wait;
     HomePage homePage;
