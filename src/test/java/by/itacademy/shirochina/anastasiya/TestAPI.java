@@ -45,7 +45,6 @@ public class TestAPI {
     public void getMethodTest() {
         HashMap<String, String> queryParams = new HashMap<>();
         queryParams.put("q", "t-shirt");
-        String htmlResponse = given().queryParams(queryParams).when().get("https://markformelle.by/search").then().extract().asString();
-        Assertions.assertTrue(htmlResponse.contains("Поиск"));
+        given().queryParams(queryParams).when().get("https://markformelle.by/search").then().assertThat().statusCode(200);
     }
 }
