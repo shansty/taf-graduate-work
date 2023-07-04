@@ -47,4 +47,11 @@ public class TestAPI {
         queryParams.put("q", "t-shirt");
         given().queryParams(queryParams).when().get("https://markformelle.by/search").then().assertThat().statusCode(200);
     }
+    @Test
+    public void getNotValidMethodTest() {
+        HashMap<String, String> queryParams = new HashMap<>();
+        queryParams.put("q", "ALSNc v/JA v/ AJN?V n");
+        String htmlResponse = given().queryParams(queryParams).when().get("https://markformelle.by/search").then().extract().asString();
+        Assertions.assertTrue(htmlResponse.contains("opacity: 0"));
+    }
 }
