@@ -1,5 +1,8 @@
 package by.itacademy.shirochina.anastasiya;
 
+import by.itacademy.shirochina.anastasiya.ui.HomePage;
+import by.itacademy.shirochina.anastasiya.ui.HomeStep;
+import by.itacademy.shirochina.anastasiya.utils.Util;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

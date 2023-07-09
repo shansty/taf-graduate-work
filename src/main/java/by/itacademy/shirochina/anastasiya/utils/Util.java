@@ -1,4 +1,4 @@
-package by.itacademy.shirochina.anastasiya;
+package by.itacademy.shirochina.anastasiya.utils;
 
 import com.github.javafaker.Faker;
 

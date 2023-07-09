@@ -1,5 +1,6 @@
-package by.itacademy.shirochina.anastasiya;
+package by.itacademy.shirochina.anastasiya.ui;
 
+import by.itacademy.shirochina.anastasiya.ui.HomePage;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 

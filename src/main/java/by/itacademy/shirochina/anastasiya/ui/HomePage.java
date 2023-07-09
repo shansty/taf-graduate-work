@@ -1,4 +1,4 @@
-package by.itacademy.shirochina.anastasiya;
+package by.itacademy.shirochina.anastasiya.ui;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -22,10 +22,10 @@ public class HomePage {
     private String inputEmailLocator = "//input[@placeholder = 'Email или логин ']";
     private String errorMessageLocator = "//div[text()='Неверный Email или пароль.']";
     private String successfulMessageLocator = "//span[text()='Вы успешно вошли на сайт!']";
-    String expectedErrorMessage = "Неверный Email или пароль.";
-    String expectedSuccessfulMessage = "Вы успешно вошли на сайт!";
+    public String expectedErrorMessage = "Неверный Email или пароль.";
+    public String expectedSuccessfulMessage = "Вы успешно вошли на сайт!";
 
-    HomePage(ChromeDriver driver, WebDriverWait wait) {
+    public HomePage(ChromeDriver driver, WebDriverWait wait) {
 
         this.driver = driver;
         this.wait = wait;
@@ -74,7 +74,6 @@ public class HomePage {
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(closePopUpLocator)));
             driver.findElement(By.xpath(closePopUpLocator)).click();
         } catch (TimeoutException e) {
-
         }
     }
 }
