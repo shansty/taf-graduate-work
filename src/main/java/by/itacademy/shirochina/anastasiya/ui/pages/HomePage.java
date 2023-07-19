@@ -1,4 +1,4 @@
-package by.itacademy.shirochina.anastasiya.ui;
+package by.itacademy.shirochina.anastasiya.ui.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;

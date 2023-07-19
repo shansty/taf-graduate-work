@@ -1,5 +1,7 @@
 package by.itacademy.shirochina.anastasiya.ui;
 
+import by.itacademy.shirochina.anastasiya.ui.pages.HomePage;
+import by.itacademy.shirochina.anastasiya.ui.steps.HomeStep;
 import by.itacademy.shirochina.anastasiya.utils.Util;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class BaseTest {
+public abstract class BaseTest {
     ChromeDriver driver;
     HomePage homePage;
     HomeStep step;

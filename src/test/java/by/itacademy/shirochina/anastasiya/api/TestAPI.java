@@ -1,58 +1,51 @@
 package by.itacademy.shirochina.anastasiya.api;
 
-import by.itacademy.shirochina.anastasiya.api.PostObject;
 import by.itacademy.shirochina.anastasiya.utils.Util;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.HashMap;
 
 import static io.restassured.RestAssured.given;
 
 public class TestAPI {
     Util util;
     PostObject postObject;
+
     @BeforeEach
     public void warmUp() {
         util = new Util();
         postObject = new PostObject();
     }
+
     @Test
     public void submitLoginFormWithCorrectData() {
         String htmlResponse = given().formParams(postObject.getFormParamsWithCorrectData()).when().
-                post("https://markformelle.by/ajax/auth_ajax.php").then().extract().asString();
-        Assertions.assertTrue(htmlResponse.contains("Вы успешно вошли на сайт!"));
+                post(postObject.endpoint).then().extract().asString();
+        Document document = Jsoup.parse(htmlResponse);
+        String actual = document.getElementsByTag("span").text();
+        Assertions.assertEquals(postObject.successMessage, actual);
     }
 
     @Test
     public void submitLoginFormWithIncorrectData() {
         String htmlResponse = given().formParams(postObject.getFormParamsWithIncorrectData()).when().
-                post("https://markformelle.by/ajax/auth_ajax.php").then().extract().asString();
-        Assertions.assertTrue(htmlResponse.contains("Неверный Email или пароль."));
+                post(postObject.endpoint).then().extract().asString();
+        Document document = Jsoup.parse(htmlResponse);
+        String actual = document.getElementsByTag("font").text();
+        Assertions.assertEquals(postObject.errorMessage, actual);
     }
 
     @Test
     public void searchForValidData() {
         given().queryParams(postObject.getQueryParams("t-shirt")).when().
-                get("https://markformelle.by/search").then().log().body().assertThat().statusCode(200);
-
+                get(postObject.searchEndpoint).then().log().all().assertThat().statusCode(200);
     }
+
     @Test
     public void searchForInvalidData() {
         given().queryParams(postObject.getQueryParams("lnl/cN?LAScn/lihACb?LBJ")).when().
-                get("https://markformelle.by/search").then().log().body().assertThat().statusCode(200);
-    }
-    @Test
-    public void searchForInvalidDatDGedf() {
-        String actual =  given().queryParams(postObject.getQueryParams("t-shirt")).when().
-                get("https://markformelle.by/search").then().extract().toString();
-        Document document = Jsoup.parse(actual);
-        Element resp = document.body();
-        System.out.println(resp);
-
+                get(postObject.searchEndpoint).then().log().body().assertThat().statusCode(200);
     }
 }
