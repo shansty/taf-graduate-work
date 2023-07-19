@@ -1,6 +1,5 @@
 package by.itacademy.shirochina.anastasiya.ui;
 
-import by.itacademy.shirochina.anastasiya.ui.HomePage;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -13,8 +12,19 @@ public class HomeStep {
         page.openBaseURL();
         page.closePopUp();
         page.clickLoginButton();
-        page.fieldEmail(email);
-        page.fieldPassword(password);
+        page.choseAuthorizationMethodByLoginForm();
+        page.fillEmail(email);
+        page.fillPassword(password);
         page.submitLoginForm();
+    }
+    public void fillFormAndSubmitWithCorrectData(String email, String password) {
+        page.openBaseURL();
+        page.closePopUp();
+        page.clickLoginButton();
+        page.choseAuthorizationMethodByLoginForm();
+        page.fillEmail(email);
+        page.fillPassword(password);
+        page.submitLoginForm();
+        page.clickProfileButton();
     }
 }

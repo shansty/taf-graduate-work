@@ -7,7 +7,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class HomePage {
@@ -17,13 +18,15 @@ public class HomePage {
     private String baseURL = "https://markformelle.by/";
     private String closePopUpLocator = "//div[@class = 'popmechanic-close']";
     private String clickLoginButtonLocator = "//a[@class = 'header-profile js-popup-modal-input']";
-    private String submitLoginFormLocator = "//input[@name = 'Login']";
-    private String inputPasswordLocator = "//input[@placeholder = 'Пароль']";
-    private String inputEmailLocator = "//input[@placeholder = 'Email или логин ']";
-    private String errorMessageLocator = "//div[text()='Неверный Email или пароль.']";
-    private String successfulMessageLocator = "//span[text()='Вы успешно вошли на сайт!']";
+    private String clickProfileButtonLocator = "//a[@class = 'header-profile']";
+    private String submitLoginFormLocator = "//button[@name = 'Login']";
+    private String inputPasswordLocator = "//input[@name='USER_PASSWORD']";
+    private String inputEmailLocator = "//input[@name='USER_LOGIN']";
+    private String errorMessageLocator = "//div[@id='error_email_reg'][text()='Неверный Email или пароль.']";
+    private String successfulUserNameLocator = "//p[@class='us-ac-name']";
+    private String enterByLoginForm = "//span[text() = 'Войти по почте / логину']";
     public String expectedErrorMessage = "Неверный Email или пароль.";
-    public String expectedSuccessfulMessage = "Вы успешно вошли на сайт!";
+    public String expectedUserName = "Анастасия Широчина";
 
     public HomePage(ChromeDriver driver, WebDriverWait wait) {
 
@@ -39,14 +42,22 @@ public class HomePage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(clickLoginButtonLocator)));
         driver.findElement(By.xpath(clickLoginButtonLocator)).click();
     }
+    public void clickProfileButton() {
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(clickProfileButtonLocator)));
+        driver.findElement(By.xpath(clickProfileButtonLocator)).click();
+    }
+    public void choseAuthorizationMethodByLoginForm() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(enterByLoginForm)));
+        driver.findElements(By.xpath(enterByLoginForm)).get(0).click();
+    }
 
-    public void fieldEmail(String email) {
+    public void fillEmail(String email) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(inputPasswordLocator)));
         WebElement inputEmail = driver.findElement(By.xpath(inputEmailLocator));
         inputEmail.sendKeys(email);
     }
 
-    public void fieldPassword(String password) {
+    public void fillPassword(String password) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(inputPasswordLocator)));
         WebElement inputPassword = driver.findElement(By.xpath(inputPasswordLocator));
         inputPassword.sendKeys(password);
@@ -59,15 +70,13 @@ public class HomePage {
 
     public String getErrorMessage() {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(errorMessageLocator)));
-        List<WebElement> errorMessages = driver.findElements(By.xpath(errorMessageLocator));
-        String actualErrorMessage = errorMessages.get(1).getText();
+        String actualErrorMessage = driver.findElement(By.xpath(errorMessageLocator)).getText();
         return actualErrorMessage;
     }
-    public String getSuccessfulMessage() {
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(successfulMessageLocator)));
-        List <WebElement> successMessages = driver.findElements(By.xpath(successfulMessageLocator));
-        String actualSuccessMessage = successMessages.get(1).getText();
-        return actualSuccessMessage;
+    public String getSuccessfulUserName() {
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(successfulUserNameLocator)));
+        String actualSuccessfulUserName = driver.findElement(By.xpath(successfulUserNameLocator)).getText();
+        return actualSuccessfulUserName;
     }
     public void closePopUp(){
         try {

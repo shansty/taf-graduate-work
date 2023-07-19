@@ -1,7 +1,10 @@
-package by.itacademy.shirochina.anastasiya;
+package by.itacademy.shirochina.anastasiya.api;
 
 import by.itacademy.shirochina.anastasiya.api.PostObject;
 import by.itacademy.shirochina.anastasiya.utils.Util;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,13 +37,22 @@ public class TestAPI {
 
     @Test
     public void searchForValidData() {
-        given().queryParams(postObject.getQueryParams("t--shirt")).when().
-                get("https://markformelle.by/search").then().assertThat().statusCode(200);
+        given().queryParams(postObject.getQueryParams("t-shirt")).when().
+                get("https://markformelle.by/search").then().log().body().assertThat().statusCode(200);
 
     }
     @Test
     public void searchForInvalidData() {
         given().queryParams(postObject.getQueryParams("lnl/cN?LAScn/lihACb?LBJ")).when().
-                get("https://markformelle.by/search").then().assertThat().statusCode(200);
+                get("https://markformelle.by/search").then().log().body().assertThat().statusCode(200);
+    }
+    @Test
+    public void searchForInvalidDatDGedf() {
+        String actual =  given().queryParams(postObject.getQueryParams("t-shirt")).when().
+                get("https://markformelle.by/search").then().extract().toString();
+        Document document = Jsoup.parse(actual);
+        Element resp = document.body();
+        System.out.println(resp);
+
     }
 }
