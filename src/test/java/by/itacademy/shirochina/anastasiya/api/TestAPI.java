@@ -22,7 +22,7 @@ public class TestAPI {
     @Test
     public void submitLoginFormWithCorrectData() {
         String htmlResponse = given().formParams(postObject.getFormParamsWithCorrectData()).when().
-                post(postObject.endpoint).then().extract().asString();
+                post(postObject.endpoint).then().assertThat().statusCode(200).extract().asString();
         Document document = Jsoup.parse(htmlResponse);
         String actual = document.getElementsByTag("span").text();
         Assertions.assertEquals(postObject.successMessage, actual);
@@ -31,7 +31,7 @@ public class TestAPI {
     @Test
     public void submitLoginFormWithIncorrectData() {
         String htmlResponse = given().formParams(postObject.getFormParamsWithIncorrectData()).when().
-                post(postObject.endpoint).then().extract().asString();
+                post(postObject.endpoint).then().assertThat().statusCode(200).extract().asString();
         Document document = Jsoup.parse(htmlResponse);
         String actual = document.getElementsByTag("font").text();
         Assertions.assertEquals(postObject.errorMessage, actual);
@@ -39,13 +39,14 @@ public class TestAPI {
 
     @Test
     public void searchForValidData() {
-        given().queryParams(postObject.getQueryParams("t-shirt")).when().
-                get(postObject.searchEndpoint).then().log().all().assertThat().statusCode(200);
+        String actual = given().queryParams(postObject.getQueryParams("t-shirt")).when().
+                get(postObject.searchEndpoint).then().assertThat().statusCode(200).extract().toString();
+        Assertions.assertTrue(actual.contains("Бюстгальтер t-shirt без косточек белого цвета"));
     }
 
     @Test
     public void searchForInvalidData() {
         given().queryParams(postObject.getQueryParams("lnl/cN?LAScn/lihACb?LBJ")).when().
-                get(postObject.searchEndpoint).then().log().body().assertThat().statusCode(200);
+                get(postObject.searchEndpoint).then().assertThat().statusCode(200);
     }
 }
