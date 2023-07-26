@@ -47,18 +47,15 @@ public class TestAPI {
         String htmlResponse = given().queryParams(postObject.getQueryParams("t-shirt")).when().
                 get(postObject.searchEndpoint).then().assertThat().statusCode(200).extract().body().asString();
         Document document = Jsoup.parse(htmlResponse);
-        String actual = document.select("li[data-product-id]").select("input[value]").get(0).toString();
-        System.out.println(actual);
-        Assertions.assertTrue(actual.contains("Бюстгальтер t-shirt без косточек белого цвета"));
+        String actual = document.select("li[data-product-id]").select("input[value]").get(2).attr("value").toString();
+        Assertions.assertEquals("Бюстгальтер t-shirt без косточек белого цвета", actual);
     }
-
     @Test
     public void searchForInvalidData() {
         String htmlResponse = given().queryParams(postObject.getQueryParams("lnl/cN?LAScn/lihACb?LBJ")).when().
                 get(postObject.searchEndpoint).then().assertThat().statusCode(200).extract().body().asString();;
         Document document = Jsoup.parse(htmlResponse);
-        String actual = document.select("div.text").toString();
-        System.out.println(actual);
-        Assertions.assertTrue(actual.contains("по вашему запросу ничего не найдено"));
+        String actual = document.select("div.text").text().toString();
+        Assertions.assertEquals("Сожалеем, но по вашему запросу ничего не найдено", actual);
     }
 }
