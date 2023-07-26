@@ -1,13 +1,18 @@
 package by.itacademy.shirochina.anastasiya.api;
 
 import by.itacademy.shirochina.anastasiya.utils.Util;
+import io.restassured.response.ValidatableResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.WebElement;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.sessionId;
 
 public class TestAPI {
     Util util;
@@ -39,14 +44,21 @@ public class TestAPI {
 
     @Test
     public void searchForValidData() {
-        String actual = given().queryParams(postObject.getQueryParams("t-shirt")).when().
-                get(postObject.searchEndpoint).then().assertThat().statusCode(200).extract().toString();
-        Assertions.assertTrue(actual.contains("Бюстгальтер t-shirt без косточек белого цвета"));
+        String htmlResponse = given().queryParams(postObject.getQueryParams("t-shirt")).when().
+                get(postObject.searchEndpoint).then().assertThat().statusCode(200).extract().body().asString();
+        Document document = Jsoup.parse(htmlResponse);
+        String actual = document.select("li[data-product-id]").select("input[value]").get(0).toString();
+        System.out.println(actual);
+        Assertions.assertTrue(actual.contains("Женщинам/Нижнее белье/Бюстгальтеры/T-shirt/Бюстгальтер t-shirt без косточек белого цвета"));
     }
 
     @Test
     public void searchForInvalidData() {
-        given().queryParams(postObject.getQueryParams("lnl/cN?LAScn/lihACb?LBJ")).when().
-                get(postObject.searchEndpoint).then().assertThat().statusCode(200);
+        String htmlResponse = given().queryParams(postObject.getQueryParams("lnl/cN?LAScn/lihACb?LBJ")).when().
+                get(postObject.searchEndpoint).then().assertThat().statusCode(200).extract().body().asString();;
+        Document document = Jsoup.parse(htmlResponse);
+        String actual = document.select("div.text").toString();
+        System.out.println(actual);
+        Assertions.assertTrue(actual.contains("по вашему запросу ничего не найдено"));
     }
 }
