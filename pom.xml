@@ -15,6 +15,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.resources.sourceEncoding>UTF-8</project.resources.sourceEncoding>
         <archetype.encoding>UTF-8</archetype.encoding>
+        <allure.version>2.23.0</allure.version>
     </properties>
     <dependencies>
         <dependency>

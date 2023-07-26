@@ -19,7 +19,7 @@ public abstract class BaseTest {
     @BeforeEach
     public void warmUp() {
         driver = new ChromeDriver();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(7));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         homePage = new HomePage(driver, wait);
         step = new HomeStep(driver, wait);
         util = new Util();
