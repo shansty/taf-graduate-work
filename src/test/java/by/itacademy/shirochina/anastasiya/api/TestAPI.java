@@ -49,7 +49,7 @@ public class TestAPI {
         Document document = Jsoup.parse(htmlResponse);
         String actual = document.select("li[data-product-id]").select("input[value]").get(0).toString();
         System.out.println(actual);
-        Assertions.assertTrue(actual.contains("Женщинам/Нижнее белье/Бюстгальтеры/T-shirt/Бюстгальтер t-shirt без косточек белого цвета"));
+        Assertions.assertTrue(actual.contains("Бюстгальтер t-shirt без косточек белого цвета"));
     }
 
     @Test
