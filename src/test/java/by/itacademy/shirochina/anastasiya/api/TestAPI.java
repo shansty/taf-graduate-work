@@ -20,7 +20,7 @@ public class TestAPI {
     }
 
     @Test
-    public void submitLoginFormWithCorrectData() {
+    public void testLoginFormWithCorrectData() {
         String htmlResponse = given().formParams(postObject.getFormParamsWithCorrectData()).when().
                 post(postObject.endpoint).then().assertThat().statusCode(200).extract().asString();
         Document document = Jsoup.parse(htmlResponse);
@@ -29,7 +29,7 @@ public class TestAPI {
     }
 
     @Test
-    public void submitLoginFormWithIncorrectData() {
+    public void testLoginFormWithIncorrectData() {
         String htmlResponse = given().formParams(postObject.getFormParamsWithIncorrectData()).when().
                 post(postObject.endpoint).then().assertThat().statusCode(200).extract().asString();
         Document document = Jsoup.parse(htmlResponse);
@@ -38,7 +38,7 @@ public class TestAPI {
     }
 
     @Test
-    public void searchForValidData() {
+    public void testSearchForValidData() {
         String htmlResponse = given().queryParams(postObject.getQueryParams("t-shirt")).when().
                 get(postObject.searchEndpoint).then().assertThat().statusCode(200).extract().body().asString();
         Document document = Jsoup.parse(htmlResponse);
@@ -47,7 +47,7 @@ public class TestAPI {
     }
 
     @Test
-    public void searchForInvalidData() {
+    public void testSearchForInvalidData() {
         String htmlResponse = given().queryParams(postObject.getQueryParams("lnl/cN?LAScn/lihACb?LBJ")).when().
                 get(postObject.searchEndpoint).then().assertThat().statusCode(200).extract().body().asString();
         ;
