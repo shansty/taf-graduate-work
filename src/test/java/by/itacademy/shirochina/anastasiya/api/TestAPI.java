@@ -1,18 +1,13 @@
 package by.itacademy.shirochina.anastasiya.api;
 
 import by.itacademy.shirochina.anastasiya.utils.Util;
-import io.restassured.response.ValidatableResponse;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.WebElement;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.sessionId;
 
 public class TestAPI {
     Util util;
