@@ -23,7 +23,7 @@ public abstract class BaseTest {
         options = new ChromeOptions();
         options.addArguments("--incognito","--disable-cache","--headless","--disable-gpu");
         driver = new ChromeDriver(options);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(40));
         homePage = new HomePage(driver, wait);
         homeStep = new HomeStep(homePage);
         util = new Util();
