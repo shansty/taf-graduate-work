@@ -65,8 +65,11 @@ public class HomePage {
     }
 
     public String getErrorMessage() {
+        System.out.println("log1");
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(errorMessageLocator)));
+        System.out.println("log2");
         String actualErrorMessage = driver.findElement(By.xpath(errorMessageLocator)).getText();
+        System.out.println("log3");
         return actualErrorMessage;
     }
     public String getSuccessfulUserName() {

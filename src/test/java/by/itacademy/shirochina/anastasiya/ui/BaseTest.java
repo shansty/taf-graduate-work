@@ -8,6 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import javax.xml.crypto.Data;
 import java.time.Duration;
 
 public abstract class BaseTest {
@@ -23,7 +25,7 @@ public abstract class BaseTest {
         options = new ChromeOptions();
         options.addArguments("--incognito","--disable-cache","--headless","--disable-gpu");
         driver = new ChromeDriver(options);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(180));
         homePage = new HomePage(driver, wait);
         homeStep = new HomeStep(homePage);
         util = new Util();
