@@ -7,31 +7,31 @@ public class TestsUI extends BaseTest {
 
     @Test
     public void testFormWithIncorrectDataAndSubmit() {
-        step.fillFormAndSubmitWithIncorrectData(util.generateEmail(), util.generatePassword());
+        homeStep.fillFormAndSubmitWithIncorrectData(util.generateEmail(), util.generatePassword());
         Assertions.assertEquals(homePage.expectedErrorMessage, homePage.getErrorMessage());
     }
 
     @Test
     public void testFormWithEmailAndEmptyPassword() {
-        step.fillFormAndSubmitWithIncorrectData(util.generateEmail(), "");
+        homeStep.fillFormAndSubmitWithIncorrectData(util.generateEmail(), "");
         Assertions.assertEquals(homePage.expectedErrorMessage, homePage.getErrorMessage());
     }
 
     @Test
     public void testFormWithPasswordAndEmptyEmail() {
-        step.fillFormAndSubmitWithIncorrectData("", util.generatePassword());
+        homeStep.fillFormAndSubmitWithIncorrectData("", util.generatePassword());
         Assertions.assertEquals(homePage.expectedErrorMessage, homePage.getErrorMessage());
     }
 
     @Test
     public void testFormWithEmptyData() {
-        step.fillFormAndSubmitWithIncorrectData("", "");
+        homeStep.fillFormAndSubmitWithIncorrectData("", "");
         Assertions.assertEquals(homePage.expectedErrorMessage, homePage.getErrorMessage());
     }
 
     @Test
     public void testFormWithCorrectData() {
-        step.fillFormAndSubmitWithCorrectData(util.correctEmail(), util.correctPassword());
+        homeStep.fillFormAndSubmitWithCorrectData(util.correctEmail(), util.correctPassword());
         Assertions.assertEquals(homePage.expectedUserName, homePage.getSuccessfulUserName());
     }
 }

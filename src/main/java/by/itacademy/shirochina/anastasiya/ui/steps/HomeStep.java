@@ -6,8 +6,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HomeStep {
     HomePage page;
-    public HomeStep (ChromeDriver driver, WebDriverWait wait){
-        page = new HomePage(driver, wait);
+    public HomeStep (HomePage page){
+        this.page = page;
     }
     public void fillFormAndSubmitWithIncorrectData(String email, String password) {
         page.openBaseURL();

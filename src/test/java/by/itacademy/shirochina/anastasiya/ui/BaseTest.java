@@ -13,7 +13,7 @@ import java.time.Duration;
 public abstract class BaseTest {
     ChromeDriver driver;
     HomePage homePage;
-    HomeStep step;
+    HomeStep homeStep;
     Util util;
 
     @BeforeEach
@@ -21,7 +21,7 @@ public abstract class BaseTest {
         driver = new ChromeDriver();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         homePage = new HomePage(driver, wait);
-        step = new HomeStep(driver, wait);
+        homeStep = new HomeStep(homePage);
         util = new Util();
     }
 
