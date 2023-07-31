@@ -1,8 +1,6 @@
 package by.itacademy.shirochina.anastasiya.ui.steps;
 
 import by.itacademy.shirochina.anastasiya.ui.pages.HomePage;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HomeStep {
     HomePage page;

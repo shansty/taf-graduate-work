@@ -1,19 +1,27 @@
 package by.itacademy.shirochina.anastasiya.api;
 
 import by.itacademy.shirochina.anastasiya.utils.Util;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 
 import java.util.HashMap;
 
 public class PostObject {
-    Util util;
-    String endpoint = "https://markformelle.by/ajax/auth_ajax.php";
-    String searchEndpoint  = "https://markformelle.by/search";
-    String successMessage = "Вы успешно вошли на сайт!";
-    String errorMessage = "Неверный Email или пароль.";
-    String validQueryParam = "t-shirt";
-    String invalidQueryParam = "лестница";
-    String expectedMessageForValidSearch = "Бюстгальтер t-shirt без косточек белого цвета";
-    String expectedMessageForInvalidSearch = "Сожалеем, но по вашему запросу ничего не найдено";
+    private Util util;
+    public String endpoint = "https://markformelle.by/ajax/auth_ajax.php";
+    public String searchEndpoint  = "https://markformelle.by/search";
+    public String successMessage = "Вы успешно вошли на сайт!";
+    public String errorMessage = "Неверный Email или пароль.";
+    public String tagNameForCorrectMessage = "span";
+    public String tagNameForIncorrectMessage = "font";
+    public String validQueryParam = "t-shirt";
+    public String invalidQueryParam = "лестница";
+    public String cssQueryForCorrectSearch = "li.catalog-item.women-item input[name='name']";
+    public String attributeForCorrectSearch = "value";
+    public String cssQueryForIncorrectSearch = "div.text";
+    public String expectedMessageForValidSearch = "Бюстгальтер t-shirt без косточек белого цвета";
+    public String expectedMessageForInvalidSearch = "Сожалеем, но по вашему запросу ничего не найдено";
 
     private HashMap<String, String> getGeneralFormParams() {
         HashMap<String, String> formParams = new HashMap<>();
@@ -46,5 +54,17 @@ public class PostObject {
         HashMap<String, String> queryParams = new HashMap<>();
         queryParams.put("q", queryParam);
         return queryParams;
+    }
+    public String getActualMessageFromTagName(String htmlResponse, String tagName) {
+        Document document = Jsoup.parse(htmlResponse);
+        return document.getElementsByTag(tagName).text();
+    }
+    public String getActualMessageFromCssQuery(String htmlResponse, String cssQuery) {
+        Document document = Jsoup.parse(htmlResponse);
+        return document.select(cssQuery).text();
+    }
+    public String getActualMessageInAttribute(String htmlResponse, String cssQuery, String attribute) {
+        Document document = Jsoup.parse(htmlResponse);
+        return document.select(cssQuery).attr(attribute);
     }
 }

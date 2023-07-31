@@ -6,12 +6,14 @@ import by.itacademy.shirochina.anastasiya.utils.Util;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 
 public abstract class BaseTest {
     ChromeDriver driver;
+    WebDriverWait wait;
+    ChromeOptions options;
     HomePage homePage;
     HomeStep homeStep;
     Util util;
@@ -19,7 +21,11 @@ public abstract class BaseTest {
     @BeforeEach
     public void warmUp() {
         driver = new ChromeDriver();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(7));
+        options = new ChromeOptions();
+        options.addArguments("--incognito");
+        options.addArguments("--disable-cache");
+        driver.manage().window().maximize();
         homePage = new HomePage(driver, wait);
         homeStep = new HomeStep(homePage);
         util = new Util();
