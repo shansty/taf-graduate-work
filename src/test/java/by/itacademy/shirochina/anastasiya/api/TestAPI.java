@@ -1,6 +1,5 @@
 package by.itacademy.shirochina.anastasiya.api;
 
-import by.itacademy.shirochina.anastasiya.utils.Util;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.junit.jupiter.api.Assertions;
@@ -10,12 +9,10 @@ import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
 
 public class TestAPI {
-    Util util;
     PostObject postObject;
 
     @BeforeEach
     public void warmUp() {
-        util = new Util();
         postObject = new PostObject();
     }
 
