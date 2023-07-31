@@ -21,10 +21,9 @@ public abstract class BaseTest {
     @BeforeEach
     public void warmUp() {
         options = new ChromeOptions();
-        options.addArguments("--incognito","--disable-cache");
+        options.addArguments("--incognito","--disable-cache","--headless","--disable-gpu");
         driver = new ChromeDriver(options);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        driver.manage().window().maximize();
+        wait = new WebDriverWait(driver, Duration.ofSeconds(9));
         homePage = new HomePage(driver, wait);
         homeStep = new HomeStep(homePage);
         util = new Util();
