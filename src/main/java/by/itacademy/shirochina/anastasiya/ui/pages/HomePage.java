@@ -1,7 +1,6 @@
 package by.itacademy.shirochina.anastasiya.ui.pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -12,7 +11,6 @@ public class HomePage {
     private WebDriverWait wait;
 
     private String baseURL = "https://markformelle.by/";
-    private String closePopUpLocator = "//div[@class = 'popmechanic-close']";
     private String clickLoginButtonLocator = "//a[@class = 'header-profile js-popup-modal-input']";
     private String clickProfileButtonLocator = "//a[@class = 'header-profile']";
     private String submitLoginFormLocator = "//button[@name = 'Login']";
@@ -23,6 +21,7 @@ public class HomePage {
     private String enterByLoginForm = "//span[text() = 'Войти по почте / логину']";
     public String expectedErrorMessage = "Неверный Email или пароль.";
     public String expectedUserName = "Анастасия Широчина";
+    //  private String closePopUpLocator = "//div[@class = 'popmechanic-close']";
 
     public HomePage(ChromeDriver driver, WebDriverWait wait) {
 
@@ -65,11 +64,8 @@ public class HomePage {
     }
 
     public String getErrorMessage() {
-        System.out.println("log1");
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(errorMessageLocator)));
-        System.out.println("log2");
         String actualErrorMessage = driver.findElement(By.xpath(errorMessageLocator)).getText();
-        System.out.println("log3");
         return actualErrorMessage;
     }
     public String getSuccessfulUserName() {
@@ -77,11 +73,11 @@ public class HomePage {
         String actualSuccessfulUserName = driver.findElement(By.xpath(successfulUserNameLocator)).getText();
         return actualSuccessfulUserName;
     }
-    public void closePopUp(){
-        try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(closePopUpLocator)));
-            driver.findElement(By.xpath(closePopUpLocator)).click();
-        } catch (TimeoutException e) {
-        }
-    }
+//    public void closePopUp(){
+//        try {
+//            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(closePopUpLocator)));
+//            driver.findElement(By.xpath(closePopUpLocator)).click();
+//        } catch (TimeoutException e) {
+//        }
+//    }
 }
