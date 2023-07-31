@@ -10,6 +10,10 @@ public class PostObject {
     String searchEndpoint  = "https://markformelle.by/search";
     String successMessage = "Вы успешно вошли на сайт!";
     String errorMessage = "Неверный Email или пароль.";
+    String validQueryParam = "t-shirt";
+    String invalidQueryParam = "лестница";
+    String expectedMessageForValidSearch = "Бюстгальтер t-shirt без косточек белого цвета";
+    String expectedMessageForInvalidSearch = "Сожалеем, но по вашему запросу ничего не найдено";
 
     private HashMap<String, String> getGeneralFormParams() {
         HashMap<String, String> formParams = new HashMap<>();

@@ -24,8 +24,8 @@ public class TestAPI {
         String htmlResponse = given().formParams(postObject.getFormParamsWithCorrectData()).when().
                 post(postObject.endpoint).then().assertThat().statusCode(200).extract().asString();
         Document document = Jsoup.parse(htmlResponse);
-        String actual = document.getElementsByTag("span").text();
-        Assertions.assertEquals(postObject.successMessage, actual);
+        String actualMessage = document.getElementsByTag("span").text();
+        Assertions.assertEquals(postObject.successMessage, actualMessage);
     }
 
     @Test
@@ -33,26 +33,26 @@ public class TestAPI {
         String htmlResponse = given().formParams(postObject.getFormParamsWithIncorrectData()).when().
                 post(postObject.endpoint).then().assertThat().statusCode(200).extract().asString();
         Document document = Jsoup.parse(htmlResponse);
-        String actual = document.getElementsByTag("font").text();
-        Assertions.assertEquals(postObject.errorMessage, actual);
+        String actualMessage = document.getElementsByTag("font").text();
+        Assertions.assertEquals(postObject.errorMessage, actualMessage);
     }
 
     @Test
     public void testSearchForValidData() {
-        String htmlResponse = given().queryParams(postObject.getQueryParams("t-shirt")).when().
+        String htmlResponse = given().queryParams(postObject.getQueryParams(postObject.validQueryParam)).when().
                 get(postObject.searchEndpoint).then().assertThat().statusCode(200).extract().body().asString();
         Document document = Jsoup.parse(htmlResponse);
-        String actual = document.select("li[data-product-id]").select("input[value]").get(2).attr("value").toString();
-        Assertions.assertEquals("Бюстгальтер t-shirt без косточек белого цвета", actual);
+        String actualMessage = document.select("li[data-product-id]").select("input[value]").get(2).attr("value").toString();
+        Assertions.assertEquals(postObject.expectedMessageForValidSearch, actualMessage);
     }
 
     @Test
     public void testSearchForInvalidData() {
-        String htmlResponse = given().queryParams(postObject.getQueryParams("lnl/cN?LAScn/lihACb?LBJ")).when().
+        String htmlResponse = given().queryParams(postObject.getQueryParams(postObject.invalidQueryParam)).when().
                 get(postObject.searchEndpoint).then().assertThat().statusCode(200).extract().body().asString();
         ;
         Document document = Jsoup.parse(htmlResponse);
-        String actual = document.select("div.text").text();
-        Assertions.assertEquals("Сожалеем, но по вашему запросу ничего не найдено", actual);
+        String actualMessage = document.select("div.text").text();
+        Assertions.assertEquals(postObject.expectedMessageForInvalidSearch, actualMessage);
     }
 }
